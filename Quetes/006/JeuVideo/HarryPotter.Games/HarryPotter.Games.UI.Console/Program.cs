@@ -25,6 +25,52 @@ Console.WriteLine(sousTitre.Substring(0, sousTitre.Length - 2));
 
 // Console.WriteLine(sousTitre.Replace(" !", ""));
 
+
+#region Initialiation Moteur de jeu
+//int positionJoueur = 1;
+
+int[] positions = new int[10];
+
+//var position = positions[5];
+//Console.WriteLine(position);
+
+//bool[] etats = new bool[5];
+//Console.WriteLine(etats[2]);
+
+//string[] noms = new string[4];
+//Console.WriteLine(etats[2]);
+
+#region Approche matricielle
+int[,] grilleDeJeu = new int[20, 20];
+const int AUCUN_PERSO = -1;
+
+for (int i = 0; i < grilleDeJeu.GetLength(0); i++)
+{
+    for (int j = 0; j < grilleDeJeu.GetLength(1); j++)
+    {
+        grilleDeJeu[i, j] = AUCUN_PERSO;
+    }
+}
+
+#endregion
+
+#region Approche Tableau de tableau
+//int[][][] grilleDeJeu = new int[20][][];
+
+//for (int i = 0; i < 20; i++)
+//{
+//    grilleDeJeu[i] = new int[20][];
+//    for (int j = 0; j < 20; j++)
+//    {
+//        grilleDeJeu[i][j] = new int[20];
+
+//    }
+//}
+#endregion
+
+#endregion
+
+
 #region MENU
 // ---- AFFICHAGE MENU ------------
 
@@ -262,6 +308,8 @@ switch (typeForce)
         } break;
 }
 #endregion
+
+
 
 
 
