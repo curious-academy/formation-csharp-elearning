@@ -25,34 +25,74 @@ Console.WriteLine(sousTitre.Substring(0, sousTitre.Length - 2));
 
 // Console.WriteLine(sousTitre.Replace(" !", ""));
 
-
-#region Initialiation Moteur de jeu
-//int positionJoueur = 1;
-
-int[] positions = new int[10];
-
-//var position = positions[5];
-//Console.WriteLine(position);
-
-//bool[] etats = new bool[5];
-//Console.WriteLine(etats[2]);
-
-//string[] noms = new string[4];
-//Console.WriteLine(etats[2]);
-
-#region Approche matricielle
-int[,] grilleDeJeu = new int[20, 20];
-const int AUCUN_PERSO = -1;
-
-for (int i = 0; i < grilleDeJeu.GetLength(0); i++)
+#region Framework du projet
+void AfficherItemMenu(string itemMenu, int indexMenu = 1)
 {
-    for (int j = 0; j < grilleDeJeu.GetLength(1); j++)
-    {
-        grilleDeJeu[i, j] = AUCUN_PERSO;
-    }
+    string format = "{0}. {1}";
+
+    string resultatFormattage = string.Format(format, indexMenu, itemMenu.Substring(0, 1).ToUpper() + itemMenu.Substring(1).ToLower());
+    Console.WriteLine(resultatFormattage);
 }
 
+// Affiche les crédits sur la console
+void AffichageCredits()
+{
+    Console.WriteLine("**********");
+    Console.WriteLine("Evan BOISSONNOT and Co");
+    Console.WriteLine("2022-next");
+    Console.WriteLine("**********");
+}
+
+void AfficherChoixForces()
+{
+    Console.WriteLine("De quel côté de la force seras-tu ? ");
+    Console.WriteLine("1. Du côté lumineux");
+    Console.WriteLine("2. Du côté obscur");
+    Console.WriteLine("3. Neutre, pas de force pour moi");
+}
+
+int AfficherForcesEtRetourneSelection()
+{
+    AfficherChoixForces();
+
+    string saisieForce = Console.ReadLine();
+    return int.Parse(saisieForce);
+}
+
+int[,] PrepareGrilleDuJeu()
+{
+    //int positionJoueur = 1;
+
+    int[] positions = new int[10];
+
+    //var position = positions[5];
+    //Console.WriteLine(position);
+
+    //bool[] etats = new bool[5];
+    //Console.WriteLine(etats[2]);
+
+    //string[] noms = new string[4];
+    //Console.WriteLine(etats[2]);
+
+    #region Approche matricielle
+    int[,] grilleDeJeu = new int[20, 20];
+    const int AUCUN_PERSO = -1;
+
+    for (int i = 0; i < grilleDeJeu.GetLength(0); i++)
+    {
+        for (int j = 0; j < grilleDeJeu.GetLength(1); j++)
+        {
+            grilleDeJeu[i, j] = AUCUN_PERSO;
+        }
+    }
+    #endregion
+
+    return grilleDeJeu;
+}
 #endregion
+
+#region Initialiation Moteur de jeu
+
 
 #region Approche Tableau de tableau
 //int[][][] grilleDeJeu = new int[20][][];
@@ -68,34 +108,38 @@ for (int i = 0; i < grilleDeJeu.GetLength(0); i++)
 //}
 #endregion
 
-#endregion
+int[,] grille = PrepareGrilleDuJeu();
 
+#endregion
 
 #region MENU
 // ---- AFFICHAGE MENU ------------
 
-string format = "{0}. {1}";
-
 // Formattage en une étape
-string itemMenu = "nouvelle partie";
-Console.WriteLine(format, 1, itemMenu.Substring(0, 1).ToUpper() + itemMenu.Substring(1).ToLower());
-
-// Formattage en 2 étapes
 //string itemMenu = "nouvelle partie";
-//string resultatFormattage = string.Format(format, 1, itemMenu.Substring(0, 1).ToUpper() + itemMenu.Substring(1).ToLower());
+//Console.WriteLine(format, 1, itemMenu.Substring(0, 1).ToUpper() + itemMenu.Substring(1).ToLower());
+
+//// Formattage en 2 étapes
+////string itemMenu = "nouvelle partie";
+////string resultatFormattage = string.Format(format, 1, itemMenu.Substring(0, 1).ToUpper() + itemMenu.Substring(1).ToLower());
+////Console.WriteLine(resultatFormattage);
+
+//itemMenu = "charger une partie";
+//string resultatFormattage = $"{2}. {itemMenu.Substring(0, 1).ToUpper() + itemMenu.Substring(1).ToLower()}"; 
 //Console.WriteLine(resultatFormattage);
 
-itemMenu = "charger une partie";
-string resultatFormattage = $"{2}. {itemMenu.Substring(0, 1).ToUpper() + itemMenu.Substring(1).ToLower()}"; 
-Console.WriteLine(resultatFormattage);
+//itemMenu = "crédits";
+//resultatFormattage = string.Format(format, 3, itemMenu.Substring(0, 1).ToUpper() + itemMenu.Substring(1).ToLower());
+//Console.WriteLine(resultatFormattage);
 
-itemMenu = "crédits";
-resultatFormattage = string.Format(format, 3, itemMenu.Substring(0, 1).ToUpper() + itemMenu.Substring(1).ToLower());
-Console.WriteLine(resultatFormattage);
+//itemMenu = "quitter";
+//resultatFormattage = string.Format(format, 4, itemMenu.Substring(0, 1).ToUpper() + itemMenu.Substring(1).ToLower());
+//Console.WriteLine(resultatFormattage);
 
-itemMenu = "quitter";
-resultatFormattage = string.Format(format, 4, itemMenu.Substring(0, 1).ToUpper() + itemMenu.Substring(1).ToLower());
-Console.WriteLine(resultatFormattage);
+AfficherItemMenu("nouvelle partie");
+AfficherItemMenu("charger une partie", 2);
+AfficherItemMenu("crédits", 3);
+AfficherItemMenu("quitter", 4);
 
 // Première étape avant formattage
 //string itemMenu = "nouvelle partie";
@@ -270,14 +314,9 @@ for (int i = 0; i < 4; i++)
 // force cast : int valeurPuissanceX = (int) puissanceArme;
 #endregion
 
-#region ---- Choix côté force -----
-Console.WriteLine("De quel côté de la force seras-tu ? ");
-Console.WriteLine("1. Du côté lumineux");
-Console.WriteLine("2. Du côté obscur");
-Console.WriteLine("3. Neutre, pas de force pour moi");
+#region ---- CHOIX COTE FORCE -----
 
-string saisieForce = Console.ReadLine();
-int typeForce = int.Parse(saisieForce);
+int typeForce = AfficherForcesEtRetourneSelection();
 
 const int forceLumineuse = 1;
 const int forceObscur = 2;
@@ -309,6 +348,10 @@ switch (typeForce)
 }
 #endregion
 
+#region ---- AFFICHAGE CREDITS ----
+AffichageCredits();
+
+#endregion
 
 
 
