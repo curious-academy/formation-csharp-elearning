@@ -144,6 +144,13 @@ int DemandeEtRecupereAgeValid()
         //finally
         //{
         //    Console.WriteLine("Et oui c'est pas bien saisi");
+
+        int ageMinimum = 12;
+
+        int comparaison = ageLocalPlayer.CompareTo(ageMinimum);
+        Console.WriteLine(comparaison);
+
+        estAgeValid = comparaison >= 0;
     }
     //catch (FormatException ex) 
     //{
@@ -151,12 +158,7 @@ int DemandeEtRecupereAgeValid()
     //    throw;
     //}
 
-    int ageMinimum = 12;
-
-    int comparaison = ageLocalPlayer.CompareTo(ageMinimum);
-    Console.WriteLine(comparaison);
-
-    estAgeValid = comparaison >= 0;
+    
 
     return ageLocalPlayer;
 }
@@ -284,8 +286,14 @@ void AfficherForceSelectionnee()
 //}
 #endregion
 
-int[,] grille = PrepareGrilleDuJeu();
+Player player = new Player("yoda");
+Ennemi ennemi = new("Compte Doku");
+int[,] grille;
 
+void InitDonneesJeu()
+{
+    grille = PrepareGrilleDuJeu();
+}
 #endregion
 
 #region MENU
@@ -351,7 +359,20 @@ Console.WriteLine(agePlayer);
 #endregion
 
 #region ---- DATE DE NAISSANCE -----
-RecupererEtAfficherDateNaissance();
+DateOnly dateNaissance = RecupererEtAfficherDateNaissance();
+player.DateDeNaissance = dateNaissance;
+
+
+Console.WriteLine($"Le player a la date {player.DateDeNaissance}");
+
+//var player2 = new Player();
+
+//player2 = player;
+//player2.DateDeNaissance = new DateOnly(2000, 1, 1);
+//Console.WriteLine($"Le player a la date {player2.DateDeNaissance}");
+//Console.WriteLine($"Le player a la date {player.DateDeNaissance}");
+
+
 #endregion
 
 #region ---- PREPARATION ARME -----
@@ -367,6 +388,14 @@ AfficherForceSelectionnee();
 
 #region ---- AFFICHAGE CREDITS ----
 AffichageCredits();
+#endregion
+
+InitDonneesJeu();
+
+
+#region Lancement du jeu
+player.SeDeplacer();
+player.Attaquer(ennemi);
 #endregion
 
 
