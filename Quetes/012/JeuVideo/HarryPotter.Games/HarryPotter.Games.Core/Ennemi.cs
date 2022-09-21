@@ -13,7 +13,7 @@ namespace HarryPotter.Games.Core
         #endregion
 
         #region Constructors
-        public Ennemi(string prenom)
+        public Ennemi(string prenom): base(prenom)
         {
             this.Prenom = prenom;
         }

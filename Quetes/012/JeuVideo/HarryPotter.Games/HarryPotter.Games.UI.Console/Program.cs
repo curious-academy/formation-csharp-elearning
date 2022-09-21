@@ -3,14 +3,14 @@
 
 #region A titre d'exemples
 #region Polymorphisme
-Character ennemiB = new Ennemi("B");
-Character playerA = new Player("A");
+//Character ennemiB = new Ennemi("B");
+Character playerA = new Player();
 
-ennemiB.SeDeplacer();
-playerA.SeDeplacer();
+//ennemiB.SeDeplacer();
+//playerA.SeDeplacer();
 
-playerA.Attaquer(ennemiB);
-ennemiB.Attaquer(playerA);
+//playerA.Attaquer(ennemiB);
+//ennemiB.Attaquer(playerA);
 
 #endregion
 
@@ -409,11 +409,11 @@ InitDonneesJeu();
 
 #region Lancement du jeu
 player.SeDeplacer();
+player.SeDeplacer(new Position(1, 1));
 player.Attaquer(ennemi);
 
 ennemi.SeDeplacer();
-ennemi.Attaquer(ennemi);
-
+ennemi.Attaquer(player);
 #endregion
 
 

@@ -11,6 +11,18 @@ namespace HarryPotter.Games.Core
     /// </summary>
     public class Character
     {
+        #region Constructors
+        public Character()
+        {
+            this.Prenom = String.Empty;
+        }
+
+        public Character(string prenom)
+        {
+            this.Prenom= prenom;
+        }
+        #endregion
+
         #region Public methods
         /// <summary>
         /// Méthode qui permet de changer la position du joueur
@@ -18,6 +30,15 @@ namespace HarryPotter.Games.Core
         public virtual void SeDeplacer()
         {
             System.Console.WriteLine($"{this.Prenom} Je me déplace");
+        }
+
+        /// <summary>
+        /// Méthode qui permet de changer la position du joueur
+        /// </summary>
+        public void SeDeplacer(Position newPosition)
+        {
+            this.SeDeplacer();
+            this.CurrentPosition = newPosition;
         }
 
         public void Attaquer(Character enemy)
@@ -28,6 +49,8 @@ namespace HarryPotter.Games.Core
 
         #region Properties
         public string Prenom { get; set; } = String.Empty;
+
+        public Position CurrentPosition { get; set; } = new Position() { X = 0, Y = 0 };
         #endregion
     }
 }
