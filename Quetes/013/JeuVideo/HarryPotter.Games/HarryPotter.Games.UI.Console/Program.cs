@@ -44,6 +44,25 @@ Console.WriteLine(sousTitre.Substring(0, sousTitre.Length - 2));
 
 // Console.WriteLine(sousTitre.Replace(" !", ""));
 
+#region Variables globales
+Player player = new Player("yoda");
+Ennemi ennemi = new("Compte Doku");
+List<Force> forces = new List<Force>();
+
+Menu menu = new();
+
+//AfficherItemMenu("nouvelle partie");
+//AfficherItemMenu("charger une partie", 2);
+//AfficherItemMenu("crédits", 3);
+//AfficherItemMenu("quitter", 4);
+
+menu.Add(1, "Nouvelle partie");
+menu.Add(2, "Charger partie");
+menu.Add(new ItemMenu(3, "Crédits"));
+menu.Add(new (4, "Quitter"));
+#endregion
+
+
 #region Framework du projet
 void AfficherItemMenu(string itemMenu, int indexMenu = 1)
 {
@@ -62,12 +81,24 @@ void AffichageCredits()
     Console.WriteLine("**********");
 }
 
+void PreparerListeForces()
+{
+    forces.Add(new LumineuseForce());
+    forces.Add(new ObscureForce());
+    forces.Add(new NeutreForce());
+}
+
 void AfficherChoixForces()
 {
     Console.WriteLine("De quel côté de la force seras-tu ? ");
-    Console.WriteLine("1. Du côté lumineux");
-    Console.WriteLine("2. Du côté obscur");
-    Console.WriteLine("3. Neutre, pas de force pour moi");
+    //Console.WriteLine("1. Du côté lumineux");
+    //Console.WriteLine("2. Du côté obscur");
+    //Console.WriteLine("3. Neutre, pas de force pour moi");
+
+    foreach (var force in forces)
+    {
+        Console.WriteLine(force);
+    }
 }
 
 int AfficherForcesEtRetourneSelection()
@@ -111,10 +142,12 @@ int[,] PrepareGrilleDuJeu()
 
 void AfficherMenu()
 {
-    AfficherItemMenu("nouvelle partie");
-    AfficherItemMenu("charger une partie", 2);
-    AfficherItemMenu("crédits", 3);
-    AfficherItemMenu("quitter", 4);
+    //AfficherItemMenu("nouvelle partie");
+    //AfficherItemMenu("charger une partie", 2);
+    //AfficherItemMenu("crédits", 3);
+    //AfficherItemMenu("quitter", 4);
+
+    menu.Afficher();
 }
 
 string RecupereSaisieAgeNonVide()
@@ -255,6 +288,8 @@ void AfficherForceSelectionnee()
     const int forceObscur = 2;
     const int sansForce = 3;
 
+    player.ForceSelectionnee = forces[typeForce - 1];
+
     switch (typeForce)
     {
         case forceLumineuse:
@@ -300,14 +335,14 @@ void AfficherForceSelectionnee()
 #endregion
 
 // HarryPotter.Games.Core.Player player = new HarryPotter.Games.Core.Player("yoda");
-Player player = new Player("yoda");
-Ennemi ennemi = new("Compte Doku");
 int[,] grille;
 
 void InitDonneesJeu()
 {
+    PreparerListeForces();
     grille = PrepareGrilleDuJeu();
 }
+InitDonneesJeu();
 #endregion
 
 #region MENU
@@ -403,9 +438,6 @@ AfficherForceSelectionnee();
 #region ---- AFFICHAGE CREDITS ----
 AffichageCredits();
 #endregion
-
-InitDonneesJeu();
-
 
 #region Lancement du jeu
 player.SeDeplacer();

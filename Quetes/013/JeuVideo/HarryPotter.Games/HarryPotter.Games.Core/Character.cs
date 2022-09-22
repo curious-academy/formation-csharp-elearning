@@ -9,7 +9,7 @@ namespace HarryPotter.Games.Core
     /// <summary>
     /// Classe parente
     /// </summary>
-    public class Character
+    public abstract class Character
     {
         #region Constructors
         public Character()
