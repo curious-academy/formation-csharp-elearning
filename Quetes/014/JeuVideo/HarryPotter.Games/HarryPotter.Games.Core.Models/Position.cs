@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HarryPotter.Games.Core
+namespace HarryPotter.Games.Core.Models
 {
     /// <summary>
     /// 2D position (x, y)

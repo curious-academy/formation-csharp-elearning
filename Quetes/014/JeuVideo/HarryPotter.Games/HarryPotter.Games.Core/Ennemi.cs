@@ -13,9 +13,8 @@ namespace HarryPotter.Games.Core
         #endregion
 
         #region Constructors
-        public Ennemi(string prenom): base(prenom)
+        public Ennemi(string prenom, AfficherInformation afficher) : base(prenom, afficher)
         {
-            this.Prenom = prenom;
         }
         #endregion
 
@@ -23,7 +22,7 @@ namespace HarryPotter.Games.Core
         public override void SeDeplacer()
         {
             // base.SeDeplacer();
-            Console.WriteLine($"{this.Prenom} je saute de bond en bond");
+            this.afficher($"{this.Prenom} je saute de bond en bond");
             // base.SeDeplacer();
         }
         #endregion

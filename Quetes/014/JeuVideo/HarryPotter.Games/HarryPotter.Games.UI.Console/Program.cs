@@ -4,7 +4,10 @@
 #region A titre d'exemples
 #region Polymorphisme
 //Character ennemiB = new Ennemi("B");
-Character playerA = new Player();
+using HarryPotter.Games.Core.Models;
+using HarryPotter.Games.UI.Console;
+
+Character playerA = new Player(Console.WriteLine);
 
 //ennemiB.SeDeplacer();
 //playerA.SeDeplacer();
@@ -45,8 +48,8 @@ Console.WriteLine(sousTitre.Substring(0, sousTitre.Length - 2));
 // Console.WriteLine(sousTitre.Replace(" !", ""));
 
 #region Variables globales
-Player player = new Player("yoda");
-Ennemi ennemi = new("Compte Doku");
+Player player = new Player("yoda", Console.WriteLine);
+Ennemi ennemi = new("Compte Doku", Console.WriteLine);
 List<Force> forces = new List<Force>();
 
 Menu menu = new();
@@ -147,7 +150,34 @@ void AfficherMenu()
     //AfficherItemMenu("crédits", 3);
     //AfficherItemMenu("quitter", 4);
 
-    menu.Afficher();
+    //AfficherInformation methodeAExecuter = Console.WriteLine;
+    // AfficherInformation methodeAExecuter = AfficherEnBleu;
+    Action<object> methodeAExecuter = AfficherEnBleu;
+
+    // menu.Afficher(methodeAExecuter);
+    // menu.Afficher(AfficherEnBleu);
+
+    var afficherEnVert = (object value) =>
+    {
+        Console.ForegroundColor = ConsoleColor.DarkGreen;
+
+        Console.WriteLine(value);
+
+        Console.ForegroundColor = ConsoleColor.White;
+    };
+
+    menu.Afficher(afficherEnVert);
+
+    // menu.Afficher(value => Console.WriteLine(value));
+}
+
+void AfficherEnBleu(object value)
+{
+    Console.ForegroundColor = ConsoleColor.Cyan;
+
+    Console.WriteLine(value);
+
+    Console.ForegroundColor = ConsoleColor.White;
 }
 
 string RecupereSaisieAgeNonVide()
@@ -440,8 +470,13 @@ AffichageCredits();
 #endregion
 
 #region Lancement du jeu
-player.SeDeplacer();
-player.SeDeplacer(new Position(1, 1));
+//player.SeDeplacer();
+//player.SeDeplacer(new Position(1, 1));
+
+// player.SeDeplacer(new RandomCalculateurPosition());
+player.SeDeplacer(new StaticCalculateurPosition(1, 2));
+
+
 player.Attaquer(ennemi);
 
 ennemi.SeDeplacer();

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using HarryPotter.Games.Core.Interfaces;
+using HarryPotter.Games.Core.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,15 +13,19 @@ namespace HarryPotter.Games.Core
     /// </summary>
     public abstract class Character
     {
+        #region Fields
+        protected readonly AfficherInformation afficher;
+        #endregion
+
         #region Constructors
-        public Character()
+        public Character(AfficherInformation afficher) : this(string.Empty, afficher)
         {
-            this.Prenom = String.Empty;
         }
 
-        public Character(string prenom)
+        public Character(string prenom, AfficherInformation afficher)
         {
-            this.Prenom= prenom;
+            this.afficher = afficher;
+            this.Prenom = prenom;
         }
         #endregion
 
@@ -29,7 +35,7 @@ namespace HarryPotter.Games.Core
         /// </summary>
         public virtual void SeDeplacer()
         {
-            System.Console.WriteLine($"{this.Prenom} Je me déplace");
+            this.afficher($"{this.Prenom} Je me déplace");
         }
 
         /// <summary>
@@ -41,9 +47,14 @@ namespace HarryPotter.Games.Core
             this.CurrentPosition = newPosition;
         }
 
+        public void SeDeplacer(ICalculateurPosition calculateurPosition)
+        {
+            this.CurrentPosition = calculateurPosition.Calculer();
+        }
+
         public void Attaquer(Character enemy)
         {
-            System.Console.WriteLine("J'attaque l'ennemi {0}", enemy);
+            this.afficher($"J'attaque l'ennemi {enemy}");
         }
         #endregion
 
