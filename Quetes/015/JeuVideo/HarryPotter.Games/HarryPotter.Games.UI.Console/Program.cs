@@ -4,6 +4,8 @@
 #region A titre d'exemples
 #region Polymorphisme
 //Character ennemiB = new Ennemi("B");
+using HarryPotter.Games.Core.DataLayers;
+using HarryPotter.Games.Core.Interfaces.DataLayers;
 using HarryPotter.Games.Core.Models;
 using HarryPotter.Games.UI.Console;
 
@@ -17,6 +19,25 @@ Character playerA = new Player(Console.WriteLine);
 
 #endregion
 
+#region Init
+IDataLayer dataLayer = new SerializationDataLayer(@"F:\Tmps\Sauvegardes\Test\Formation online\sauvegarde.xml");
+try
+{
+    var menuTest = new Menu();
+    menuTest.Add(new ItemMenu(1, "Test menu 1"));
+    menuTest.Add(new ItemMenu(2, "Test menu 2"));
+
+    dataLayer.Ecrire(menuTest);
+
+    var @object = dataLayer.Lire(typeof(Menu));
+   
+}
+catch (FileNotFoundException ex)
+{
+    Console.WriteLine("Fichier non présent");
+}
+
+#endregion
 #endregion
 
 

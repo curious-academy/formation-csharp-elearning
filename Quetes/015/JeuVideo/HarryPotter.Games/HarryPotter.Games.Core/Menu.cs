@@ -9,7 +9,7 @@ namespace HarryPotter.Games.Core
     /// <summary>
     /// Menu de sélection du jeu
     /// </summary>
-    public class Menu
+    public class Menu 
     {
         private readonly List<ItemMenu> items = new List<ItemMenu>();
 
@@ -44,5 +44,7 @@ namespace HarryPotter.Games.Core
                 afficher(item);
             }
         }
+
+        public List<ItemMenu> Items { get => this.items; }
     }
 }
