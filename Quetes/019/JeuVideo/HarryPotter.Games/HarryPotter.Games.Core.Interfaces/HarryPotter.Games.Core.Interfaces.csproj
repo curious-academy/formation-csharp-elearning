@@ -7,11 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\HarryPotter.Games.Core.Interfaces\HarryPotter.Games.Core.Interfaces.csproj" />
     <ProjectReference Include="..\HarryPotter.Games.Core.Models\HarryPotter.Games.Core.Models.csproj" />
   </ItemGroup>
 
