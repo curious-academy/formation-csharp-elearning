@@ -23,7 +23,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Framework", "Framework", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Training", "Training", "{1F6E2094-D471-4DE6-BD75-D3F2915FE300}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DecouverteNewtonsoft", "DecouverteNewtonsoft\DecouverteNewtonsoft.csproj", "{8286266D-6F74-47AB-8A3D-78BBBF2E5126}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DecouverteNewtonsoft", "DecouverteNewtonsoft\DecouverteNewtonsoft.csproj", "{8286266D-6F74-47AB-8A3D-78BBBF2E5126}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DecouverteLinq", "DecouverteLinq\DecouverteLinq.csproj", "{7EEC8CA6-A989-4D53-9BA8-D03C5532E346}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +57,10 @@ Global
 		{8286266D-6F74-47AB-8A3D-78BBBF2E5126}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8286266D-6F74-47AB-8A3D-78BBBF2E5126}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8286266D-6F74-47AB-8A3D-78BBBF2E5126}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7EEC8CA6-A989-4D53-9BA8-D03C5532E346}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EEC8CA6-A989-4D53-9BA8-D03C5532E346}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7EEC8CA6-A989-4D53-9BA8-D03C5532E346}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7EEC8CA6-A989-4D53-9BA8-D03C5532E346}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -68,6 +74,7 @@ Global
 		{69A25074-B2F2-457B-8E7F-A6C60D3AE6A5} = {E805EAEA-AF46-4FD1-96F5-6E35BC564EEC}
 		{E805EAEA-AF46-4FD1-96F5-6E35BC564EEC} = {3FD37716-86C5-4F19-BA84-188A9321A82E}
 		{8286266D-6F74-47AB-8A3D-78BBBF2E5126} = {1F6E2094-D471-4DE6-BD75-D3F2915FE300}
+		{7EEC8CA6-A989-4D53-9BA8-D03C5532E346} = {1F6E2094-D471-4DE6-BD75-D3F2915FE300}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9F1E44BE-2CC7-46C1-AF45-BD4B66DC7015}
