@@ -11,14 +11,17 @@ namespace HarryPotter.Games.Core.Menu.Commands
         #region Fields
         private List<Force> forces;
         private Player player;
+        private Game game = null;
         #endregion
 
         #region Public methods
         public void Executer()
         {
             this.forces = new List<Force>();
-
             this.player = new Player("harry potter", Console.WriteLine);
+            this.game = new Game(this.player);
+
+            this.game.Init(new Configurations.GameConfig(20, 20));
 
             int agePlayer = this.RecupereAgeValide();
             Console.WriteLine(agePlayer);
