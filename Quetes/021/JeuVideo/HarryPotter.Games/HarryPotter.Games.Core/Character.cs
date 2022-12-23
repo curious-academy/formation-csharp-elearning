@@ -13,8 +13,15 @@ namespace HarryPotter.Games.Core
     /// </summary>
     public abstract class Character
     {
+        #region Constants
+        public const int DEFAULT_POINTS_DE_VIE = 100;
+        public int Degat = 50;
+        public event Action<Character> EstMort;
+        #endregion
+
         #region Fields
         protected readonly AfficherInformation afficher;
+        private int pointsDeVie = DEFAULT_POINTS_DE_VIE;
         #endregion
 
         #region Constructors
@@ -55,10 +62,39 @@ namespace HarryPotter.Games.Core
         public void Attaquer(Character enemy)
         {
             this.afficher($"J'attaque l'ennemi {enemy}");
+
+            bool pasMemePersonne = this != enemy && this.Prenom != enemy.Prenom;
+            if (pasMemePersonne)
+            {
+                //enemy.PointsDeVie -= this.Degat;
+                //if (enemy.PointsDeVie <= 0)
+                //{
+                //    enemy.PointsDeVie = 0;
+                //    enemy.EstMort?.Invoke(enemy);
+                //}
+                enemy.PointsDeVie -= this.Degat;
+            }
         }
         #endregion
 
         #region Properties
+        /// <summary>
+        /// Points de vie, max à 100 (au début du jeu)
+        /// </summary>
+        public int PointsDeVie
+        {
+            get => this.pointsDeVie;
+            set
+            {
+                this.pointsDeVie = value;
+                if (this.pointsDeVie <= 0)
+                {
+                    this.pointsDeVie = 0;
+                    this.EstMort?.Invoke(this);
+                }
+            }
+        }
+
         public string Prenom { get; set; } = String.Empty;
 
         public Position CurrentPosition { get; set; } = new Position() { X = 0, Y = 0 };

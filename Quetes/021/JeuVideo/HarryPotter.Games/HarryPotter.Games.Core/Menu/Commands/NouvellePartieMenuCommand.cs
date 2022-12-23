@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -22,6 +23,10 @@ namespace HarryPotter.Games.Core.Menu.Commands
             this.game = new Game(this.player);
 
             this.game.Init(new Configurations.GameConfig(20, 20));
+
+            Ennemi enemi = new Ennemi("voldemort", Console.WriteLine);
+            enemi.Attaquer(this.player);
+            enemi.Attaquer(this.player);
 
             int agePlayer = this.RecupereAgeValide();
             Console.WriteLine(agePlayer);

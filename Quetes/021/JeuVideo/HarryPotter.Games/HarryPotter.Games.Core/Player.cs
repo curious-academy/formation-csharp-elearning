@@ -78,11 +78,6 @@ namespace HarryPotter.Games.Core
         //    this.dateDeNaissance = value;
         //}
 
-        /// <summary>
-        /// Points de vie, max à 100 (au début du jeu)
-        /// </summary>
-        public int PointsDeVie { get; set; }
-
         public Force ForceSelectionnee { get; set; }
         #endregion
     }

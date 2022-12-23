@@ -16,11 +16,22 @@ namespace HarryPotter.Games.Core
         public Game(Player player)
         {
             this.CurrentPlayer = player;
+            this.CurrentPlayer.EstMort += this.FinDePartie;
+
             this.Grille = new GrilleDeJeu();
         }
         #endregion
 
         #region Public methods
+        public void FinDePartie(Character character)
+        {
+            if (this.CurrentPlayer == character)
+            {
+                Console.WriteLine($"Le player {this.CurrentPlayer.Prenom} est mort :'( GAME OVER");
+                this.CurrentPlayer.EstMort -= this.FinDePartie; // A voir si on le fait là ou plus tard ...
+            }
+        }
+
         /// <summary>
         /// Initialize le jeu avec les paramètres en entrée de méthode
         /// </summary>
