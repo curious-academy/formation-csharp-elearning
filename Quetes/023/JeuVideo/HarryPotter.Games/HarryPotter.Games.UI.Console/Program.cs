@@ -3,6 +3,7 @@ using HarryPotter.Games.Core.DataLayers;
 using HarryPotter.Games.Core.Interfaces.DataLayers;
 using HarryPotter.Games.Core.Menu;
 using HarryPotter.Games.UI.Console;
+using System.Data.SqlClient;
 
 
 #region A titre d'exemples
@@ -164,7 +165,29 @@ void AfficherMenu()
 
 void SaisirChoixMenu()
 {
-    menu.SaisirChoix(Console.WriteLine, Console.ReadLine);
+    try
+    {
+        menu.SaisirChoix(Console.WriteLine, Console.ReadLine);
+    }
+    catch (SqlException ex) when (ex.Message.StartsWith("Une erreur arrivée"))
+    {
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.WriteLine("Un problème d'accès à la base de données a eu lieu.");
+        Console.ForegroundColor = ConsoleColor.White;
+    }
+    catch (SqlException ex)
+    {
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.WriteLine("Un problème d'accès à la base de données a eu lieu.");
+        Console.ForegroundColor = ConsoleColor.White;
+    }
+    catch (Exception ex)
+    {
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine("Une erreur (quelconque) est apparue");
+        Console.ForegroundColor = ConsoleColor.White;
+    }
+
 }
 
 void AfficherEnBleu(object value)

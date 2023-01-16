@@ -33,6 +33,11 @@ namespace HarryPotter.Games.Core.DataLayers
             using FileStream? fileStream = new FileStream(this.CheminEnregistrement, FileMode.OpenOrCreate, FileAccess.Read);
             return serializer.Deserialize(fileStream) as T;
         }
+
+        public List<T> LireList()
+        {
+            throw new NotImplementedException();
+        }
         #endregion
 
         #region Properties

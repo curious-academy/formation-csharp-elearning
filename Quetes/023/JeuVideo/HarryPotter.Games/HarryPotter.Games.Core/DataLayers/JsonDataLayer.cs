@@ -34,6 +34,11 @@ namespace HarryPotter.Games.Core.DataLayers
 
             return item as T;
         }
+
+        public List<T> LireList()
+        {
+            throw new NotImplementedException();
+        }
         #endregion
     }
 }

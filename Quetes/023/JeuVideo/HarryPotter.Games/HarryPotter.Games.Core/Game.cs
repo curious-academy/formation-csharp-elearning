@@ -120,6 +120,11 @@ namespace HarryPotter.Games.Core
         #endregion
 
         #region Internal methods
+        private void Save()
+        {
+
+        }
+
         private void InitGrille(int nbLignes, int nbColonnes)
         {
             for (int i = 0; i < nbLignes; i++)

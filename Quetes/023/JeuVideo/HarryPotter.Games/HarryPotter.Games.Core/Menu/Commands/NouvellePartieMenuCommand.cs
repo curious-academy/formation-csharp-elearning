@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HarryPotter.Games.Core.DataLayers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -10,7 +11,10 @@ namespace HarryPotter.Games.Core.Menu.Commands
     public class NouvellePartieMenuCommand : IMenuCommand
     {
         #region Fields
+        private string connectionString = "Server=DESKTOP-1446PBQ;Database=HarryPotter.Udemy.Database;Trusted_Connection=True;";
+
         private List<Force> forces;
+        private List<Ennemi> ennemies;
         private Player player;
         private Game game = null;
         #endregion
@@ -20,7 +24,12 @@ namespace HarryPotter.Games.Core.Menu.Commands
         {
             this.forces = new List<Force>();
             this.player = new Player("harry potter", Console.WriteLine);
+            player.Email = "harry@potter.fr";
             this.game = new Game(this.player);
+
+            this.SauvegarderPartie();
+
+            this.RecupererEtAfficherEnnemis();
 
             this.game.Init(new Configurations.GameConfig(20, 20));
 
@@ -59,6 +68,17 @@ namespace HarryPotter.Games.Core.Menu.Commands
         #endregion
 
         #region Internal methods
+        private void SauvegarderPartie()
+        {
+            var dataLayer = new GameDbDataLayer(this.connectionString);
+            dataLayer.Ecrire(this.game);
+        }
+
+        private void RecupererEtAfficherEnnemis()
+        {
+            this.ennemies = new EnnemiDBDataLayer(this.connectionString).LireList();
+        }
+
         void AfficherArmes()
         {
             float puissanceArme = 10;

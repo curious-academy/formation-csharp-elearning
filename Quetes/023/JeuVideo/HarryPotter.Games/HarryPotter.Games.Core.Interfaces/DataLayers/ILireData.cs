@@ -17,5 +17,12 @@ namespace HarryPotter.Games.Core.Interfaces.DataLayers
         /// <param name="typeObjet"></param>
         /// <returns></returns>
         Titem Lire(Type typeObjet);
+
+        /// <summary>
+        /// Récupère la liste d'objet depuis un fichier ou une base de données
+        /// </summary>
+        /// <param name="typeObjet"></param>
+        /// <returns></returns>
+        List<Titem> LireList();
     }
 }
