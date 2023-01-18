@@ -31,9 +31,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DecouverteEvenements", "Dec
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DecouverteAdodonet", "DecouverteAdodonet\DecouverteAdodonet.csproj", "{6CE1CD32-81BE-4ED3-831B-BB306B0FCF9B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestSettings", "TestSettings\TestSettings.csproj", "{96A21B99-5CB3-4D70-83B6-55BD5FD84ED9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestSettings", "TestSettings\TestSettings.csproj", "{96A21B99-5CB3-4D70-83B6-55BD5FD84ED9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp2", "ConsoleApp2\ConsoleApp2.csproj", "{AB15F22E-9845-44E8-B3E9-AE30BC776DF2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp2", "ConsoleApp2\ConsoleApp2.csproj", "{AB15F22E-9845-44E8-B3E9-AE30BC776DF2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DecouverteEFCore", "DecouverteEFCore\DecouverteEFCore.csproj", "{8189AFBA-6B78-4777-A558-DF66B1DCD847}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -85,6 +87,10 @@ Global
 		{AB15F22E-9845-44E8-B3E9-AE30BC776DF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AB15F22E-9845-44E8-B3E9-AE30BC776DF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AB15F22E-9845-44E8-B3E9-AE30BC776DF2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8189AFBA-6B78-4777-A558-DF66B1DCD847}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8189AFBA-6B78-4777-A558-DF66B1DCD847}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8189AFBA-6B78-4777-A558-DF66B1DCD847}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8189AFBA-6B78-4777-A558-DF66B1DCD847}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -103,6 +109,7 @@ Global
 		{6CE1CD32-81BE-4ED3-831B-BB306B0FCF9B} = {1F6E2094-D471-4DE6-BD75-D3F2915FE300}
 		{96A21B99-5CB3-4D70-83B6-55BD5FD84ED9} = {1F6E2094-D471-4DE6-BD75-D3F2915FE300}
 		{AB15F22E-9845-44E8-B3E9-AE30BC776DF2} = {00503CFA-8E34-4BFA-B09E-A5E2FABD4C34}
+		{8189AFBA-6B78-4777-A558-DF66B1DCD847} = {1F6E2094-D471-4DE6-BD75-D3F2915FE300}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9F1E44BE-2CC7-46C1-AF45-BD4B66DC7015}

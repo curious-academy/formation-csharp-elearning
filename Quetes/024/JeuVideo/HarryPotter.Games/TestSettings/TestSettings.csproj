@@ -5,6 +5,7 @@
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <UserSecretsId>c083ecae-a34e-40eb-a60d-b240eafbc40b</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,6 +13,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="appsettings.production.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
