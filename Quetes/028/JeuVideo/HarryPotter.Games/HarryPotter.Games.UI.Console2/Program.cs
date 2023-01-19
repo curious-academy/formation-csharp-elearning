@@ -1,5 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using HarryPotter.Games.Core;
+using HarryPotter.Games.Core.Menu;
 
 Console.WriteLine("Hello, World!");
 
