@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "TestSettings": {
+      "commandName": "Project",
+      "commandLineArgs": "testargs=12"
+    }
+  }
+}
