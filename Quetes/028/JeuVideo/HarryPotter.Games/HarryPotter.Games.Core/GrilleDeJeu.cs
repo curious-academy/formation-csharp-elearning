@@ -17,6 +17,12 @@ namespace HarryPotter.Games.Core
         #endregion
 
         #region Public methods
+        public void Placer(Character character, int x, int y)
+        {
+            var cellule = this.cellules.Where(item => item.ABonneCoordonnees(x, y)).Single();
+            cellule.Characters.Add(character);
+        }
+
         public void Add(Cellule item)
         {           
 
@@ -75,6 +81,9 @@ namespace HarryPotter.Games.Core
         public int Count => this.cellules.Count;
 
         public bool IsReadOnly => false;
+
+        public int NbLignes { get; set; }
+        public int NbColonnes { get; set; }
         #endregion
     }
 }

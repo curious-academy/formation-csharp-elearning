@@ -1,4 +1,8 @@
-﻿using HarryPotter.Games.Core.DataLayers;
+﻿using HarryPotter.Games.Core.Armes;
+using HarryPotter.Games.Core.Configurations;
+using HarryPotter.Games.Core.DataLayers;
+using HarryPotter.Games.Core.Forces;
+using HarryPotter.Games.Core.Mapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,14 +16,19 @@ namespace HarryPotter.Games.Core.Menu.Commands
     {
         #region Fields
         private List<Force> forces;
+        private List<Arme> armes = new();
         private List<Ennemi> ennemies;
         private Game game = null;
         private readonly Player currentPlayer;
+        private readonly IMap map;
+        private (Action<string> affichage, Func<string> lireSaisie) accessEntreeSortie;
         #endregion
 
         #region Constructors
-        public NouvellePartieMenuCommand(Player player)
+        public NouvellePartieMenuCommand(Player player, EntreeSortie entreeSortie, IMap map)
         {
+            this.map = map;
+            this.accessEntreeSortie = entreeSortie.RecupererEntreeSortie();
             this.currentPlayer = player;
         }
         #endregion
@@ -28,13 +37,12 @@ namespace HarryPotter.Games.Core.Menu.Commands
         public void Executer()
         {
             this.forces = new List<Force>();
-            this.game = new Game(this.currentPlayer);
+            this.game = new Game(this.currentPlayer, this.map);
 
             this.SauvegarderPartie();
             this.RecupererEtAfficherEnnemis();
 
             this.game.Init(new Configurations.GameConfig(20, 20));
-
             
             PreparerListeForces();
             AfficherForceSelectionnee();
@@ -42,17 +50,7 @@ namespace HarryPotter.Games.Core.Menu.Commands
             AfficherArmes();
 
             #region Lancement du jeu
-            //player.SeDeplacer();
-            //player.SeDeplacer(new Position(1, 1));
-
-            // player.SeDeplacer(new RandomCalculateurPosition());
-            //player.SeDeplacer(new StaticCalculateurPosition(1, 2));
-
-
-            //player.Attaquer(ennemi);
-
-            //ennemi.SeDeplacer();
-            //ennemi.Attaquer(player);
+            this.game.Start();
             #endregion
         }
         #endregion
@@ -71,28 +69,23 @@ namespace HarryPotter.Games.Core.Menu.Commands
 
         void AfficherArmes()
         {
-            float puissanceArme = 10;
-            puissanceArme = 15.6f;
+            this.armes.Clear();
+            this.armes.Add(new BaguetteArme() {  Id = 1, Name = "Archnaf", Dommage = 50, Handicap = 0.5m});
+            this.armes.Add(new BaguetteEnBoisArme() { Id = 2, Name = "Voldaril", Dommage = 100, Handicap = 10m });
 
-            Console.WriteLine(puissanceArme);
-
-            int valeurParDefaultPuissanceArme = 10;
-            // affectation sans cast : puissanceArme = valeurParDefaultPuissanceArme;
-
-            Console.WriteLine("Choisissez votre arme pour démarrer le jeu :");
-
-            // int j = 0;
-
-            // j = j + 1; // 0 + 1
-            // j = j + 1; // 1 + 1
-
-            // j++; // 2 + 1
-
-            for (int i = 0; i < 4; i++)
+            this.accessEntreeSortie.affichage("CHOIX ARME");
+            foreach (var item in this.armes)
             {
-                Console.WriteLine($"{i + 1}. Arme {i + 1}");
-                Console.WriteLine("{0}. Arme {0}", i + 1);
-            }
+                this.accessEntreeSortie.affichage(item.ToString());
+            }        
+            this.accessEntreeSortie.affichage("Choisis ton arme pour démarrer le jeu :");
+
+            var resultChoixArme = this.accessEntreeSortie.lireSaisie();
+            var query = from arme in this.armes
+                        where arme.Id == int.Parse(resultChoixArme)
+                        select arme;
+
+            this.currentPlayer.Arme = query.SingleOrDefault();
         }
 
         void PreparerListeForces()
@@ -112,14 +105,14 @@ namespace HarryPotter.Games.Core.Menu.Commands
 
         void AfficherChoixForces()
         {
-            Console.WriteLine("De quel côté de la force seras-tu ? ");
-            //Console.WriteLine("1. Du côté lumineux");
-            //Console.WriteLine("2. Du côté obscur");
-            //Console.WriteLine("3. Neutre, pas de force pour moi");
+            this.accessEntreeSortie.affichage("De quel côté de la force seras-tu ? ");
+            //this.accessEntreeSortie.affichage("1. Du côté lumineux");
+            //this.accessEntreeSortie.affichage("2. Du côté obscur");
+            //this.accessEntreeSortie.affichage("3. Neutre, pas de force pour moi");
 
             foreach (var force in forces)
             {
-                Console.WriteLine(force);
+                this.accessEntreeSortie.affichage(force.ToString());
             }
         }
 
@@ -127,42 +120,19 @@ namespace HarryPotter.Games.Core.Menu.Commands
         {
             int typeForce = AfficherForcesEtRetourneSelection();
 
-            const int forceLumineuse = 1;
-            const int forceObscur = 2;
-            const int sansForce = 3;
-
             this.currentPlayer.ForceSelectionnee = forces[typeForce - 1];
 
-            switch (typeForce)
-            {
-                case forceLumineuse:
-                    {
-                        Console.WriteLine("Tu as choisi le côté lumineux");
-                    }
-                    break;
-
-                case forceObscur:
-                    {
-                        Console.WriteLine("Tu as choisi le côté obscur");
-                    }
-                    break;
-
-                case sansForce:
-                    {
-                        Console.WriteLine("Tu n'a pas de choix de force");
-                    }
-                    break;
-
-                default:
-                    {
-                        Console.WriteLine("Tu n'a rien choisi comme force");
-                    }
-                    break;
-            }
+            string messageAAfficher = this.GetMessageAfficherAutourSelectionForce((TypeForce) typeForce);
+            this.accessEntreeSortie.affichage(messageAAfficher);
         }
 
-
-        
+        private string GetMessageAfficherAutourSelectionForce(TypeForce typeForce) => typeForce switch
+        {
+            TypeForce.Lumineuse => "Tu as choisi le côté lumineux",
+            TypeForce.Obscur => "Tu as choisi le côté obscur",
+            TypeForce.None => "Tu n'a pas de choix de force",
+            _ => "Tu n'a rien choisi comme force"
+        };        
         #endregion
 
         #region Properties

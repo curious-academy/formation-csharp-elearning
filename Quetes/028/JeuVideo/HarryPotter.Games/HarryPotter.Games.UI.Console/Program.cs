@@ -1,6 +1,8 @@
 ﻿// See https://aka.ms/new-console-template for more information
+using HarryPotter.Games.Core.Configurations;
 using HarryPotter.Games.Core.DataLayers;
 using HarryPotter.Games.Core.Interfaces.DataLayers;
+using HarryPotter.Games.Core.Mapper;
 using HarryPotter.Games.Core.Menu;
 using HarryPotter.Games.UI.Console;
 using System.Data.SqlClient;
@@ -90,7 +92,8 @@ Console.WriteLine(sousTitre.Substring(0, sousTitre.Length - 2));
 
 #region Variables globales
 Player currentPlayer = new Player(Console.WriteLine);
-Menu menu = new(currentPlayer);
+EntreeSortie entreeSortie = new();
+Menu menu = new(currentPlayer, new DefaultMap(entreeSortie), entreeSortie) ;
 
 menu.Add(0, "Créer profil du joueur / de la joueuse");
 menu.Add(1, "Nouvelle partie");
@@ -98,7 +101,6 @@ menu.Add(2, "Charger partie");
 menu.Add(new ItemMenu(3, "Crédits"));
 menu.Add(new (4, "Quitter"));
 #endregion
-
 
 #region Framework du projet
 void AfficherItemMenu(string itemMenu, int indexMenu = 1)

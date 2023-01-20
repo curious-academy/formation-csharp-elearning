@@ -19,11 +19,23 @@ namespace HarryPotter.Games.Core
         { 
             this.X= x; 
             this.Y = y; 
+
+            //if (characters == null)
+            //{
+            //    characters = new List<Character>();
+            //}
+            characters ??= new List<Character>();
+
             this.Characters = characters;
         }
         #endregion
 
         #region Public methods
+        public void SupprimerPersonnage(Character character)
+        {
+            this.Characters.Remove(character);
+        }
+
         /// <summary>
         /// Return true si pas null et si Nb elements > 0
         /// </summary>
@@ -35,7 +47,7 @@ namespace HarryPotter.Games.Core
 
         public bool AAuMoinsNPersonnages(int minimum = 0)
         {
-            return this.Characters != null && this.Characters.Count > minimum;
+            return this.Characters != null && this.Characters.Count >= minimum;
         }
 
         public bool DetientPersonnage(Character character)

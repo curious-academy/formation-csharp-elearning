@@ -1,4 +1,5 @@
-﻿using HarryPotter.Games.Core.Interfaces;
+﻿using HarryPotter.Games.Core.Armes;
+using HarryPotter.Games.Core.Interfaces;
 using HarryPotter.Games.Core.Models;
 using System;
 using System.Collections.Generic;
@@ -98,6 +99,8 @@ namespace HarryPotter.Games.Core
         public string Prenom { get; set; } = String.Empty;
 
         public Position CurrentPosition { get; set; } = new Position() { X = 0, Y = 0 };
+
+        public Arme? Arme { get; set; }
         #endregion
     }
 }

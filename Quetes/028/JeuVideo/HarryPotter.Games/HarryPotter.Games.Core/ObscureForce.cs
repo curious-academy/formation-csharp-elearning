@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HarryPotter.Games.Core.Forces;
 
 namespace HarryPotter.Games.Core
 {

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using HarryPotter.Games.Core.Armes;
+using HarryPotter.Games.Core.Forces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -68,15 +70,6 @@ namespace HarryPotter.Games.Core
         }
 
         public string Email { get => email; set => email = value; }
-
-        //public DateOnly GetDateDeNaissance()
-        //{
-        //    return this.dateDeNaissance;
-        //}
-        //public void SetDateDeNaissance(DateOnly value)
-        //{
-        //    this.dateDeNaissance = value;
-        //}
 
         public Force ForceSelectionnee { get; set; }
         #endregion

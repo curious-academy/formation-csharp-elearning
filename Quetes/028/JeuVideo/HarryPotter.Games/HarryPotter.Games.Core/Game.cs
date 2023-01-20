@@ -1,4 +1,5 @@
 ﻿using HarryPotter.Games.Core.Configurations;
+using HarryPotter.Games.Core.Mapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +13,14 @@ namespace HarryPotter.Games.Core
     /// </summary>
     public class Game
     {
+        #region Fields
+        private IMap map;
+        #endregion
+
         #region Constructors
-        public Game(Player player)
+        public Game(Player player, IMap map)
         {
+            this.map = map;
             this.CurrentPlayer = player;
             this.CurrentPlayer.EstMort += this.FinDePartie;
 
@@ -39,6 +45,97 @@ namespace HarryPotter.Games.Core
         public void Init(GameConfig config)
         {
             this.InitGrille(config.NbLignes, config.NbColonnes);
+
+            this.Grille.Placer(this.CurrentPlayer, 0, 0);
+        }
+
+        /// <summary>
+        /// Démarre le jeu et les déplacements du joueur / de la joueuse
+        /// </summary>
+        public void Start()
+        {
+            while (this.CurrentPlayer.PointsDeVie > 0)
+            {
+                this.map.Afficher(this.Grille);
+
+                Console.WriteLine("Que voulez-vous faire ?");
+                this.AfficherChoixDeplacements();
+                var celluleCourante = this.DeplacerJoueur(Console.ReadLine());
+
+                var celluleAvecCombat = this.VerifieSiCombat();
+                if (celluleAvecCombat != null)
+                {
+                    this.DeathMath(celluleAvecCombat.Characters.First(item => item != this.CurrentPlayer));
+                }
+            }
+        }
+
+        private void DeplacerEnnemis()
+        {
+            // Todo : à finir
+        }
+
+        private void DeathMath(Character ennemi)
+        {
+            while(this.CurrentPlayer.PointsDeVie > 0 || ennemi.PointsDeVie > 0)
+            {
+                this.CurrentPlayer.Attaquer(ennemi);
+                ennemi.Attaquer(this.CurrentPlayer);
+            }
+        }
+
+        private Cellule DeplacerJoueur(string choix)
+        {
+            (int x, int y) coordonnees = (0, 0);
+
+            switch (choix)
+            {
+                case "Q":
+                    {
+                        coordonnees.x = 0;
+                        coordonnees.y = -1;
+                    }
+                    break;
+                case "D":
+                    {
+                        coordonnees.x = 0;
+                        coordonnees.y = 1;
+                    }
+                    break;
+                case "Z":
+                    {
+                        coordonnees.x = -1;
+                        coordonnees.y = 0;
+                    }
+                    break;
+                case "S": 
+                    {
+                        coordonnees.x = 1;
+                        coordonnees.y = 0;
+                    } break;
+                default:
+                    break;
+            }
+
+            var query = this.DonnerCoordonneesPersonnageEnumerator(this.CurrentPlayer);
+            var cellule = query.Single();
+
+            cellule.SupprimerPersonnage(this.CurrentPlayer);
+
+            int x = cellule.X + coordonnees.x;
+            int y = cellule.Y + coordonnees.y;
+
+            this.Grille.Placer(this.CurrentPlayer, x, y);
+
+            return cellule;
+        }
+
+        private void AfficherChoixDeplacements()
+        {
+            Console.WriteLine("-> Z : En haut");
+            Console.WriteLine("-> S : En bas");
+            Console.WriteLine("-> Q : A gauche");
+            Console.WriteLine("-> D : A droite");
         }
 
         public static bool AvoirPersonnesSurCellule(Cellule cellule)
@@ -135,6 +232,8 @@ namespace HarryPotter.Games.Core
                     this.Grille.Add(cell);
                 }
             }
+            this.Grille.NbLignes = nbLignes;
+            this.Grille.NbColonnes = nbColonnes;
         }
         #endregion
 

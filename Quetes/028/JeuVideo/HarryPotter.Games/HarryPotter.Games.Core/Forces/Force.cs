@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace HarryPotter.Games.Core
+namespace HarryPotter.Games.Core.Forces
 {
     /// <summary>
     /// Force du joueur/de la joueuse
@@ -18,14 +18,14 @@ namespace HarryPotter.Games.Core
         #region Constructors
         public Force(string libelle)
         {
-            this.Libelle = libelle;
+            Libelle = libelle;
         }
         #endregion
 
         #region Public methods
         public override string ToString()
         {
-            return String.Format("{0}. {1}", this.Id, this.Libelle);
+            return string.Format("{0}. {1}", Id, Libelle);
         }
         #endregion
 

@@ -1,4 +1,6 @@
-﻿using HarryPotter.Games.Core.Menu.Commands;
+﻿using HarryPotter.Games.Core.Configurations;
+using HarryPotter.Games.Core.Mapper;
+using HarryPotter.Games.Core.Menu.Commands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,11 +21,11 @@ namespace HarryPotter.Games.Core.Menu
         #endregion
 
         #region Constructors
-        public Menu(Player player)
+        public Menu(Player player, IMap map, EntreeSortie entreeSortie)
         {
             this.currentPlayer = player;
-            this.commands.Add(new NouvellePartieMenuCommand(this.currentPlayer));
-            this.commands.Add(new CreationProfilPlayerMenuCommand(this.currentPlayer));
+            this.commands.Add(new NouvellePartieMenuCommand(this.currentPlayer, entreeSortie, map));
+            this.commands.Add(new CreationProfilPlayerMenuCommand(this.currentPlayer, entreeSortie));
             this.commands.Add(new AProposMenuCommand());
         }
         #endregion
