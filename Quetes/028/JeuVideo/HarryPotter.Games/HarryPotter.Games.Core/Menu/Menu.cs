@@ -13,14 +13,17 @@ namespace HarryPotter.Games.Core.Menu
     public class Menu
     {
         #region Fields
+        private readonly Player currentPlayer;
         private readonly List<ItemMenu> items = new List<ItemMenu>();
         private readonly List<IMenuCommand> commands = new List<IMenuCommand>();
         #endregion
 
         #region Constructors
-        public Menu()
+        public Menu(Player player)
         {
-            this.commands.Add(new NouvellePartieMenuCommand());
+            this.currentPlayer = player;
+            this.commands.Add(new NouvellePartieMenuCommand(this.currentPlayer));
+            this.commands.Add(new CreationProfilPlayerMenuCommand(this.currentPlayer));
             this.commands.Add(new AProposMenuCommand());
         }
         #endregion
@@ -76,21 +79,6 @@ namespace HarryPotter.Games.Core.Menu
 
             commandAExecuter = this.commands.Where(commandEncours => commandEncours.Index == menuIndex)
                                             .SingleOrDefault();
-            //switch(menuIndex)
-            //{
-            //    case 1:
-            //        {
-            //            commandAExecuter = this.commands.Where(commandEncours => commandEncours.Index == 1)
-            //                                            .SingleOrDefault();
-            //        } break;
-
-            //    case 3:
-            //        {
-            //            commandAExecuter = this.commands.Where(commandEncours => commandEncours.Index == 3)
-            //                                            .SingleOrDefault();
-            //        }
-            //        break;
-            //}
             commandAExecuter?.Executer();
         }
         #endregion

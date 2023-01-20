@@ -13,37 +13,29 @@ namespace HarryPotter.Games.Core.Menu.Commands
         #region Fields
         private List<Force> forces;
         private List<Ennemi> ennemies;
-        private Player player;
         private Game game = null;
+        private readonly Player currentPlayer;
+        #endregion
+
+        #region Constructors
+        public NouvellePartieMenuCommand(Player player)
+        {
+            this.currentPlayer = player;
+        }
         #endregion
 
         #region Public methods
         public void Executer()
         {
             this.forces = new List<Force>();
-            this.player = new Player("harry potter", Console.WriteLine);
-            player.Email = "harry@potter.fr";
-            this.game = new Game(this.player);
+            this.game = new Game(this.currentPlayer);
 
             this.SauvegarderPartie();
-
             this.RecupererEtAfficherEnnemis();
 
             this.game.Init(new Configurations.GameConfig(20, 20));
 
-            Ennemi enemi = new Ennemi("voldemort", Console.WriteLine);
-            enemi.Attaquer(this.player);
-            enemi.Attaquer(this.player);
-
-            int agePlayer = this.RecupereAgeValide();
-            Console.WriteLine(agePlayer);
-
-            DateOnly dateNaissance = RecupererEtAfficherDateNaissance();
-            player.DateDeNaissance = dateNaissance;
-
-
-            Console.WriteLine($"Le player a la date {player.DateDeNaissance}");
-
+            
             PreparerListeForces();
             AfficherForceSelectionnee();
 
@@ -103,22 +95,6 @@ namespace HarryPotter.Games.Core.Menu.Commands
             }
         }
 
-
-        DateOnly RecupererEtAfficherDateNaissance()
-        {
-            Console.WriteLine("Quelle est ta date de naissance ?");
-            string dateSaisie = Console.ReadLine();
-
-            DateTime dateEtHeureNaissance = DateTime.Parse(dateSaisie);
-
-            DateOnly dateNaissance = DateOnly.FromDateTime(dateEtHeureNaissance); // DateOnly.Parse(dateSaisie);
-
-            Console.WriteLine("Tu as saisi " + dateNaissance);
-            Console.WriteLine("Tu as saisi " + dateNaissance.ToString());
-
-            return dateNaissance;
-        }
-
         void PreparerListeForces()
         {
             forces.Add(new LumineuseForce());
@@ -155,7 +131,7 @@ namespace HarryPotter.Games.Core.Menu.Commands
             const int forceObscur = 2;
             const int sansForce = 3;
 
-            player.ForceSelectionnee = forces[typeForce - 1];
+            this.currentPlayer.ForceSelectionnee = forces[typeForce - 1];
 
             switch (typeForce)
             {
@@ -186,98 +162,7 @@ namespace HarryPotter.Games.Core.Menu.Commands
         }
 
 
-        int RecupereAgeValide()
-        {
-            int agePlayer = DemandeEtRecupereAgeValid();
-
-            AfficherInfoAuSujetAge(agePlayer);
-
-            return agePlayer;
-        }
-
-        void AfficherInfoAuSujetAge(int agePlayer = 0)
-        {
-            if (agePlayer > 0)
-            {
-                Console.WriteLine("Yes, vous pouvez continuer la saisie !");
-
-                if (agePlayer < 18)
-                {
-                    Console.WriteLine("Attention tu n'es pas majeur-e ...");
-                }
-                else if (agePlayer < 40)
-                {
-                    Console.WriteLine("Ca va tu n'es pas trop vieux ... !");
-                }
-                else
-                {
-                    Console.WriteLine("A priori, tu as au moins 40 ou plus ;)");
-                }
-            }
-        }
-
-
-
-        string RecupereSaisieAgeNonVide()
-        {
-            bool ageSaisiPasValide = true;
-            string ageSaisie = "";
-            do
-            {
-                Console.WriteLine("Ton âge s'il te plaît ?");
-                ageSaisie = Console.ReadLine();
-
-                ageSaisiPasValide = string.IsNullOrWhiteSpace(ageSaisie);
-
-            } while (ageSaisiPasValide);
-
-            return ageSaisie;
-        }
-
-
-
-        int DemandeEtRecupereAgeValid()
-        {
-            int ageLocalPlayer = -1;
-            bool estAgeValid = false;
-
-            while (!estAgeValid)
-            {
-                string ageSaisie = RecupereSaisieAgeNonVide();
-
-                int.TryParse(ageSaisie, out ageLocalPlayer);
-
-                //try
-                //{
-                //    agePlayer = int.Parse(ageSaisie); // int.MaxValue;
-                //                                      // agePlayer = agePlayer + 10;
-                //}
-                //catch (FormatException ex)
-                //{
-                //    agePlayer = 0;
-                //    throw new AgeNonValideException();
-                //}
-                //finally
-                //{
-                //    Console.WriteLine("Et oui c'est pas bien saisi");
-
-                int ageMinimum = 12;
-
-                int comparaison = ageLocalPlayer.CompareTo(ageMinimum);
-                Console.WriteLine(comparaison);
-
-                estAgeValid = comparaison >= 0;
-            }
-            //catch (FormatException ex) 
-            //{
-            //    Console.WriteLine(ex.Message);
-            //    throw;
-            //}
-
-
-
-            return ageLocalPlayer;
-        }
+        
         #endregion
 
         #region Properties

@@ -28,34 +28,34 @@ Character playerA = new Player(Console.WriteLine);
 #endregion
 
 #region Init
-IDataLayer<Menu> dataLayer = new SerializationDataLayer<Menu>(@"F:\Tmps\Sauvegardes\Test\Formation online\sauvegarde.xml");
-try
-{
-    var menuTest = new Menu();
-    menuTest.Add(new ItemMenu(1, "Test menu 1"));
-    menuTest.Add(new ItemMenu(2, "Test menu 2"));
+//IDataLayer<Menu> dataLayer = new SerializationDataLayer<Menu>(@"F:\Tmps\Sauvegardes\Test\Formation online\sauvegarde.xml");
+//try
+//{
+//    var menuTest = new Menu(null);
+//    menuTest.Add(new ItemMenu(1, "Test menu 1"));
+//    menuTest.Add(new ItemMenu(2, "Test menu 2"));
 
-    dataLayer.Ecrire(menuTest);
+//    dataLayer.Ecrire(menuTest);
 
-    var @object = dataLayer.Lire(typeof(Menu));   
-}
-catch (FileNotFoundException ex)
-{
-    Console.WriteLine("Fichier non présent");
-}
+//    var @object = dataLayer.Lire(typeof(Menu));   
+//}
+//catch (FileNotFoundException ex)
+//{
+//    Console.WriteLine("Fichier non présent");
+//}
 
-List<Force> forces2 = new List<Force>()
-{
-    new LumineuseForce(),
-    new LumineuseForce()
-};
+//List<Force> forces2 = new List<Force>()
+//{
+//    new LumineuseForce(),
+//    new LumineuseForce()
+//};
 
 // Exemple d'utilisation avec la serialisation XML
 // IDataLayer<List<Force>> dataLayer2 = new SerializationDataLayer<List<Force>>(@"F:\Tmps\Sauvegardes\Test\Formation online\forces.xml");
 
 // Exemple d'utilisation avec la serialisation Json
-IDataLayer<List<Force>> dataLayer2 = new JsonDataLayer<List<Force>>(@"F:\Tmps\Sauvegardes\Test\Formation online\forces.json");
-dataLayer2.Ecrire(forces2);
+//IDataLayer<List<Force>> dataLayer2 = new JsonDataLayer<List<Force>>(@"F:\Tmps\Sauvegardes\Test\Formation online\forces.json");
+//dataLayer2.Ecrire(forces2);
 
 #endregion
 #endregion
@@ -89,12 +89,10 @@ Console.WriteLine(sousTitre.Substring(0, sousTitre.Length - 2));
 // Console.WriteLine(sousTitre.Replace(" !", ""));
 
 #region Variables globales
+Player currentPlayer = new Player(Console.WriteLine);
+Menu menu = new(currentPlayer);
 
-Ennemi ennemi = new("Compte Doku", Console.WriteLine);
-
-
-Menu menu = new();
-
+menu.Add(0, "Créer profil du joueur / de la joueuse");
 menu.Add(1, "Nouvelle partie");
 menu.Add(2, "Charger partie");
 menu.Add(new ItemMenu(3, "Crédits"));
